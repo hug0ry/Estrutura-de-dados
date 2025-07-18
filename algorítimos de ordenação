@@ -1,1 +1,60 @@
 
+import time
+
+def selection_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        min_idx = i
+        for j in range(i + 1, n):
+            if arr[j] < arr[min_idx]:
+                min_idx = j
+        arr[i], arr[min_idx] = arr[min_idx], arr[i]
+
+def insertion_sort(arr):
+    n = len(arr)
+    for i in range(1, n):
+        key = arr[i]
+        j = i - 1
+        while j >= 0 and arr[j] > key:
+            arr[j + 1] = arr[j]
+            j -= 1
+        arr[j + 1] = key
+
+def ler_arquivo(nome_arquivo):
+    with open(nome_arquivo, 'r') as f:
+        linhas = f.readlines()
+        return [int(l.strip()) for l in linhas if l.strip().isdigit()]
+
+def main():
+    arquivo_teste = r'C:\Users\hug0r\OneDrive\Documentos\ESTRUTURA DE DADOS\Algorítimos de ordenação\instancias-num\num.1000.1.in'  
+    print(f"Lendo dados do arquivo '{arquivo_teste}'...")
+    dados = ler_arquivo(arquivo_teste)
+
+    dados_selection = dados.copy()
+    print("\nExecutando Selection Sort...")
+    inicio_sel = time.time()
+    selection_sort(dados_selection)
+    fim_sel = time.time()
+    tempo_sel = fim_sel - inicio_sel
+    print("Selection Sort concluído.")
+    print(f"Tempo de execução: {tempo_sel:.6f} segundos")
+
+    dados_insertion = dados.copy()
+    print("\nExecutando Insertion Sort...")
+    inicio_ins = time.time()
+    insertion_sort(dados_insertion)
+    fim_ins = time.time()
+    tempo_ins = fim_ins - inicio_ins
+    print("Insertion Sort concluído.")
+    print(f"Tempo de execução: {tempo_ins:.6f} segundos")
+
+    print("\nComparação Final:")
+    if tempo_sel < tempo_ins:
+        print("Selection Sort foi mais rápido.")
+    elif tempo_sel > tempo_ins:
+        print("Insertion Sort foi mais rápido.")
+    else:
+        print("Ambos tiveram o mesmo tempo de execução.")
+
+if __name__ == "__main__":
+    main()
